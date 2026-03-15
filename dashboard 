@@ -1,0 +1,225 @@
+import { useState } from "react";
+
+export default function WBC2026Dashboard() {
+  const [tab, setTab] = useState("leaderboard");
+
+  const lb = [
+    { r:1, n:"Reyner Crosby", t:"Reyner's Remarkable Team", ch:"USA", pts:28, max:52, tb:3 },
+    { r:2, n:"Jonathan Cape", t:"Los Bravos", ch:"USA", pts:28, max:52, tb:5 },
+    { r:3, n:"Kaushal Mangipudi", t:"Team NAME", ch:"USA", pts:28, max:52, tb:7 },
+    { r:4, n:"Hendrik vH", t:"—", ch:"USA", pts:27, max:51, tb:7 },
+    { r:5, n:"Sunil John", t:"CROWN ME THE CHAMP!!", ch:"USA", pts:26, max:50, tb:8 },
+    { r:6, n:"Bryan Rinkus", t:"Bryan's Best Team", ch:"USA", pts:26, max:50, tb:11 },
+    { r:7, n:"Mac Conforti", t:"Team of Intensity", ch:"USA", pts:26, max:50, tb:12 },
+    { r:8, n:"Kyle Ray", t:"Peachtree City Fireballers", ch:"USA", pts:26, max:50, tb:7 },
+    { r:9, n:"Zach Goodman", t:"TBD (FKA Yusei Goodbye)", ch:"USA", pts:25, max:49, tb:8 },
+    { r:10, n:"Heath Maag", t:"50 Year Storm", ch:"USA", pts:25, max:49, tb:5 },
+    { r:11, n:"Jenson Mathew", t:"Acuna Matata", ch:"USA", pts:24, max:48, tb:11 },
+    { r:12, n:"Jon Faulkenberry", t:"Troutzilla", ch:"USA", pts:24, max:48, tb:8 },
+    { r:13, n:"Andrew Wild", t:"—", ch:"USA", pts:23, max:47, tb:10 },
+    { r:14, n:"Andrew Tyndall", t:"ATX", ch:"Japan", pts:22, max:30, tb:7 },
+    { r:15, n:"Erik Altano", t:"Erik's Excellent Team", ch:"Japan", pts:20, max:28, tb:6 },
+    { r:16, n:"Mike Sotalin", t:"Mike's Magnificent Team", ch:"PR", pts:18, max:18, tb:6 },
+  ];
+
+  const picks = {
+    "Reyner Crosby": { p:{A1:"Canada",A2:"PR",B1:"USA",B2:"Mexico",C1:"Japan",C2:"S.Korea",D1:"DR",D2:"Venezuela"}, q:{QF1:"Mexico",QF2:"Japan",QF3:"USA",QF4:"DR"}, s:{SF1:"Japan",SF2:"USA"}, ch:"USA", tb:3 },
+    "Jonathan Cape": { p:{A1:"Canada",A2:"PR",B1:"USA",B2:"Mexico",C1:"Japan",C2:"S.Korea",D1:"DR",D2:"Venezuela"}, q:{QF1:"Canada",QF2:"Japan",QF3:"USA",QF4:"DR"}, s:{SF1:"Japan",SF2:"USA"}, ch:"USA", tb:5 },
+    "Kaushal Mangipudi": { p:{A1:"Canada",A2:"PR",B1:"USA",B2:"Mexico",C1:"Japan",C2:"S.Korea",D1:"DR",D2:"Venezuela"}, q:{QF1:"Canada",QF2:"Japan",QF3:"USA",QF4:"DR"}, s:{SF1:"Japan",SF2:"USA"}, ch:"USA", tb:7 },
+    "Hendrik vH": { p:{A1:"PR",A2:"Canada",B1:"Mexico",B2:"USA",C1:"Japan",C2:"S.Korea",D1:"DR",D2:"Venezuela"}, q:{QF1:"USA",QF2:"Japan",QF3:"Mexico",QF4:"DR"}, s:{SF1:"USA",SF2:"DR"}, ch:"USA", tb:7 },
+    "Sunil John": { p:{A1:"PR",A2:"Canada",B1:"USA",B2:"Mexico",C1:"Japan",C2:"S.Korea",D1:"DR",D2:"Venezuela"}, q:{QF1:"PR",QF2:"Japan",QF3:"USA",QF4:"DR"}, s:{SF1:"Japan",SF2:"USA"}, ch:"USA", tb:8 },
+    "Bryan Rinkus": { p:{A1:"PR",A2:"Canada",B1:"USA",B2:"Mexico",C1:"Japan",C2:"S.Korea",D1:"DR",D2:"Venezuela"}, q:{QF1:"Mexico",QF2:"Japan",QF3:"USA",QF4:"DR"}, s:{SF1:"Japan",SF2:"USA"}, ch:"USA", tb:11 },
+    "Mac Conforti": { p:{A1:"PR",A2:"Canada",B1:"USA",B2:"Mexico",C1:"Japan",C2:"S.Korea",D1:"DR",D2:"Venezuela"}, q:{QF1:"PR",QF2:"Japan",QF3:"USA",QF4:"DR"}, s:{SF1:"Japan",SF2:"USA"}, ch:"USA", tb:12 },
+    "Kyle Ray": { p:{A1:"PR",A2:"Canada",B1:"USA",B2:"Mexico",C1:"Japan",C2:"S.Korea",D1:"DR",D2:"Venezuela"}, q:{QF1:"PR",QF2:"Japan",QF3:"USA",QF4:"DR"}, s:{SF1:"Japan",SF2:"USA"}, ch:"USA", tb:7 },
+    "Zach Goodman": { p:{A1:"Cuba",A2:"PR",B1:"USA",B2:"Mexico",C1:"Japan",C2:"S.Korea",D1:"DR",D2:"Venezuela"}, q:{QF1:"Mexico",QF2:"Japan",QF3:"USA",QF4:"DR"}, s:{SF1:"Japan",SF2:"USA"}, ch:"USA", tb:8 },
+    "Heath Maag": { p:{A1:"PR",A2:"Canada",B1:"USA",B2:"Italy",C1:"Japan",C2:"C.Taipei",D1:"DR",D2:"Venezuela"}, q:{QF1:"PR",QF2:"Japan",QF3:"USA",QF4:"DR"}, s:{SF1:"Japan",SF2:"USA"}, ch:"USA", tb:5 },
+    "Jenson Mathew": { p:{A1:"PR",A2:"Canada",B1:"USA",B2:"Mexico",C1:"Japan",C2:"S.Korea",D1:"Venezuela",D2:"DR"}, q:{QF1:"Mexico",QF2:"Japan",QF3:"USA",QF4:"Venezuela"}, s:{SF1:"Japan",SF2:"USA"}, ch:"USA", tb:11 },
+    "Jon Faulkenberry": { p:{A1:"PR",A2:"Cuba",B1:"USA",B2:"Mexico",C1:"Japan",C2:"S.Korea",D1:"DR",D2:"Venezuela"}, q:{QF1:"PR",QF2:"Japan",QF3:"USA",QF4:"DR"}, s:{SF1:"Japan",SF2:"USA"}, ch:"USA", tb:8 },
+    "Andrew Wild": { p:{A1:"Canada",A2:"PR",B1:"Mexico",B2:"USA",C1:"Japan",C2:"S.Korea",D1:"Venezuela",D2:"DR"}, q:{QF1:"USA",QF2:"Japan",QF3:"Mexico",QF4:"S.Korea"}, s:{SF1:"USA",SF2:"Mexico"}, ch:"USA", tb:10 },
+    "Andrew Tyndall": { p:{A1:"Cuba",A2:"Canada",B1:"USA",B2:"Mexico",C1:"Japan",C2:"S.Korea",D1:"Venezuela",D2:"DR"}, q:{QF1:"Cuba",QF2:"Japan",QF3:"USA",QF4:"Venezuela"}, s:{SF1:"Japan",SF2:"USA"}, ch:"Japan", tb:7 },
+    "Erik Altano": { p:{A1:"PR",A2:"Colombia",B1:"Mexico",B2:"Italy",C1:"Japan",C2:"S.Korea",D1:"DR",D2:"Venezuela"}, q:{QF1:"PR",QF2:"Japan",QF3:"Mexico",QF4:"DR"}, s:{SF1:"Japan",SF2:"DR"}, ch:"Japan", tb:6 },
+    "Mike Sotalin": { p:{A1:"PR",A2:"Cuba",B1:"Italy",B2:"USA",C1:"Japan",C2:"S.Korea",D1:"Venezuela",D2:"DR"}, q:{QF1:"PR",QF2:"Japan",QF3:"Cuba",QF4:"S.Korea"}, s:{SF1:"PR",SF2:"S.Korea"}, ch:"PR", tb:6 },
+  };
+
+  const conf = {A1:"Canada",A2:"PR",B1:"Italy",B2:"USA",C1:"Japan",C2:"S.Korea",D1:"DR",D2:"Venezuela"};
+  const qfW = new Set(["USA","DR","Italy","Venezuela"]);
+  const sfT = new Set(["USA","DR","Italy","Venezuela"]);
+  const dead = new Set(["Japan","PR"]);
+  const elim = new Set(["Colombia","Cuba","Panama","Great Britain","Brazil","Mexico","C.Taipei","Czechia","Australia","Netherlands","Israel","Nicaragua","Canada","S.Korea","PR","Japan"]);
+  const ab = {"S.Korea":"KOR","C.Taipei":"TPE","Venezuela":"VEN","Colombia":"COL","Australia":"AUS","Czechia":"CZE","Great Britain":"GBR","Israel":"ISR","Panama":"PAN","Canada":"CAN","Cuba":"CUB","Mexico":"MEX","Italy":"ITA","Brazil":"BRA","Japan":"JPN","USA":"USA","DR":"DR","PR":"PR"};
+  const a = v => ab[v]||v;
+
+  const cc = (f,v) => {
+    if (f.startsWith("QF")) return qfW.has(v)?"bg-emerald-100 text-emerald-800 font-bold":"bg-red-50 text-red-300 line-through";
+    if (f.startsWith("SF")) return sfT.has(v)?"bg-amber-50 text-amber-700 font-semibold":"bg-red-50 text-red-300 line-through";
+    if (conf[f]===v) return "bg-emerald-100 text-emerald-800 font-bold";
+    const pl=f[0], ot=f.endsWith("1")?pl+"2":pl+"1";
+    if (conf[f]&&conf[ot]===v) return "bg-amber-50 text-amber-700 font-semibold";
+    if (elim.has(v)) return "bg-red-50 text-red-300 line-through";
+    return "text-slate-600";
+  };
+  const cch = c => dead.has(c)?"text-red-400 line-through":c==="USA"?"text-blue-700 font-bold":"text-gray-600";
+
+  const Bd = ({r}) => {
+    const s = r===1?"bg-yellow-400 text-yellow-900 shadow":r===2?"bg-gray-300 text-gray-700 shadow":r===3?"bg-amber-600 text-white shadow":"bg-slate-100 text-slate-500";
+    return <span className={`inline-flex items-center justify-center w-7 h-7 rounded-full font-black text-xs ${s}`}>{r}</span>;
+  };
+
+  const pf = ["A1","A2","B1","B2","C1","C2","D1","D2"];
+  const qfF = ["QF1","QF2","QF3","QF4"];
+  const sfF = ["SF1","SF2"];
+
+  return (
+    <div className="w-full max-w-3xl mx-auto px-3 py-4 min-h-screen bg-gradient-to-b from-slate-50 to-slate-100">
+      <div className="mb-5">
+        <div className="flex items-center gap-2.5 mb-2">
+          <span className="text-2xl">⚾</span>
+          <div>
+            <h1 className="text-xl font-black text-slate-800 tracking-tight leading-tight">WBC 2026 Fantasy Pool</h1>
+            <p className="text-xs text-slate-500">16 Players — Championship: Mar 17, Miami</p>
+          </div>
+        </div>
+        <div className="flex flex-wrap gap-1.5 mt-2.5">
+          <span className="bg-emerald-100 text-emerald-700 font-bold px-2.5 py-0.5 rounded-full text-xs">All QFs Done</span>
+          <span className="bg-blue-100 text-blue-700 font-bold px-2.5 py-0.5 rounded-full text-xs">SF1: USA vs DR — Mar 15</span>
+          <span className="bg-purple-100 text-purple-700 font-bold px-2.5 py-0.5 rounded-full text-xs">SF2: ITA vs VEN — Mar 16</span>
+          <span className="bg-red-100 text-red-700 font-bold px-2.5 py-0.5 rounded-full text-xs">Japan + PR eliminated</span>
+        </div>
+      </div>
+
+      <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden mb-4">
+        <div className="flex border-b border-slate-100">
+          {[["leaderboard","Leaderboard"],["picks","Picks Grid"],["bracket","Bracket + Info"]].map(([id,label]) => (
+            <button key={id} onClick={()=>setTab(id)} className={`flex-1 px-3 py-2.5 text-xs font-bold text-center transition-all ${tab===id?"bg-slate-800 text-white":"text-slate-500 hover:bg-slate-50"}`}>{label}</button>
+          ))}
+        </div>
+
+        <div className="p-3">
+          {tab==="leaderboard" && (
+            <div className="space-y-0.5">
+              {lb.map((row,i) => (
+                <div key={i} className={`flex items-center gap-2.5 px-3 py-2.5 rounded-lg ${i<3?"bg-gradient-to-r from-slate-50 to-white border border-slate-100 shadow-sm":"hover:bg-slate-50"}`}>
+                  <Bd r={row.r}/>
+                  <div className="flex-1 min-w-0">
+                    <div className="font-semibold text-slate-800 text-sm truncate">{row.n}</div>
+                    <div className="text-xs text-slate-400 truncate">{row.t}</div>
+                  </div>
+                  <div className="text-center px-1.5 hidden sm:block">
+                    <div className={`text-xs font-bold ${cch(row.ch)}`}>{row.ch}{dead.has(row.ch)?" ✗":""}</div>
+                    <div className="text-xs text-slate-300">champ</div>
+                  </div>
+                  <div className="text-center" style={{minWidth:"40px"}}>
+                    <div className="text-xl font-black text-slate-800">{row.pts}</div>
+                    <div className="text-xs text-slate-300">pts</div>
+                  </div>
+                  <div className="text-center" style={{minWidth:"36px"}}>
+                    <div className="text-sm font-bold text-cyan-600">{row.max}</div>
+                    <div className="text-xs text-slate-300">max</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {tab==="picks" && (
+            <div className="overflow-x-auto rounded-lg border border-slate-200">
+              <table className="w-full text-xs">
+                <thead>
+                  <tr className="bg-slate-800 text-white">
+                    <th className="px-1.5 py-1.5 text-left sticky left-0 bg-slate-800 z-20" style={{minWidth:"85px"}}>Name</th>
+                    {pf.map(h=><th key={h} className="px-0.5 py-1.5 text-center bg-emerald-800">{h}</th>)}
+                    {qfF.map(h=><th key={h} className="px-0.5 py-1.5 text-center bg-emerald-900">{h}</th>)}
+                    {sfF.map(h=><th key={h} className="px-0.5 py-1.5 text-center bg-amber-700">{h}</th>)}
+                    <th className="px-0.5 py-1.5 text-center">Ch</th>
+                    <th className="px-0.5 py-1.5 text-center">TB</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {lb.map((row,i) => {
+                    const pk = picks[row.n];
+                    if (!pk) return null;
+                    const bg = i%2===0?"bg-white":"bg-slate-50";
+                    const sn = row.n.split(" ")[0]+" "+(row.n.split(" ")[1]||"")[0]+".";
+                    return (
+                      <tr key={i} className={bg}>
+                        <td className={`px-1.5 py-1 font-semibold text-slate-700 sticky left-0 z-10 ${bg} border-r border-slate-100`} style={{minWidth:"85px"}}>{sn}</td>
+                        {pf.map(f=><td key={f} className={`px-0.5 py-1 text-center ${cc(f,pk.p[f])}`}>{a(pk.p[f])}</td>)}
+                        {qfF.map(f=><td key={f} className={`px-0.5 py-1 text-center ${cc(f,pk.q[f])}`}>{a(pk.q[f])}</td>)}
+                        {sfF.map(f=><td key={f} className={`px-0.5 py-1 text-center ${cc(f,pk.s[f])}`}>{a(pk.s[f])}</td>)}
+                        <td className={`px-0.5 py-1 text-center font-bold ${cch(pk.ch)}`}>{a(pk.ch)}</td>
+                        <td className="px-0.5 py-1 text-center text-slate-400">{pk.tb}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+              <div className="px-3 py-1.5 bg-slate-50 border-t border-slate-200 flex gap-3 text-xs text-slate-400 flex-wrap">
+                <span className="flex items-center gap-1"><span className="w-2 h-2 bg-emerald-100 rounded-sm border border-emerald-200"></span>Correct</span>
+                <span className="flex items-center gap-1"><span className="w-2 h-2 bg-amber-50 rounded-sm border border-amber-200"></span>Alive</span>
+                <span className="flex items-center gap-1"><span className="w-2 h-2 bg-red-50 rounded-sm border border-red-100"></span>Out</span>
+              </div>
+            </div>
+          )}
+
+          {tab==="bracket" && (
+            <div className="space-y-3">
+              <div className="grid grid-cols-2 gap-3">
+                <div className="bg-gradient-to-br from-blue-50 to-white p-4 rounded-xl border border-blue-100">
+                  <div className="text-xs font-bold text-blue-400 uppercase tracking-wider mb-2">SF1 — Mar 15</div>
+                  <div className="flex items-center justify-around">
+                    <div className="text-center"><div className="text-xl">🇺🇸</div><div className="font-black text-sm mt-0.5">USA</div></div>
+                    <div className="text-base font-black text-slate-300">VS</div>
+                    <div className="text-center"><div className="text-xl">🇩🇴</div><div className="font-black text-sm mt-0.5">DR</div></div>
+                  </div>
+                  <div className="text-center mt-1.5 text-xs text-blue-400">8PM ET — Miami (FS1)</div>
+                </div>
+                <div className="bg-gradient-to-br from-green-50 to-white p-4 rounded-xl border border-green-100">
+                  <div className="text-xs font-bold text-green-400 uppercase tracking-wider mb-2">SF2 — Mar 16</div>
+                  <div className="flex items-center justify-around">
+                    <div className="text-center"><div className="text-xl">🇮🇹</div><div className="font-black text-sm mt-0.5">Italy</div></div>
+                    <div className="text-base font-black text-slate-300">VS</div>
+                    <div className="text-center"><div className="text-xl">🇻🇪</div><div className="font-black text-sm mt-0.5">VEN</div></div>
+                  </div>
+                  <div className="text-center mt-1.5 text-xs text-green-400">8PM ET — Miami (FS1)</div>
+                </div>
+              </div>
+              <div className="bg-gradient-to-r from-amber-50 to-white p-3 rounded-xl border border-amber-200 text-center">
+                <div className="text-xs font-bold text-amber-500 uppercase tracking-wider">Final — Mar 17</div>
+                <div className="text-base font-black text-slate-800 mt-0.5">SF1 Winner vs SF2 Winner</div>
+                <div className="text-xs text-amber-500 mt-0.5">8PM ET — Miami (FOX)</div>
+              </div>
+              <div className="bg-white p-3 rounded-xl border border-slate-200">
+                <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">QF Results</div>
+                <div className="grid grid-cols-2 gap-1.5 text-xs text-slate-600">
+                  <div>DR 10 — Korea 0</div><div>USA 5 — Canada 3</div>
+                  <div>Italy beat PR</div><div>Venezuela beat Japan</div>
+                </div>
+              </div>
+              <div className="bg-red-50 p-3 rounded-xl border border-red-200">
+                <div className="text-xs font-bold text-red-700">Dead Champion Picks</div>
+                <div className="text-xs text-red-600 mt-0.5">Tyndall + Altano (Japan) — Sotalin (PR). 13 of 16 picked USA.</div>
+              </div>
+              <div className="bg-white p-3 rounded-xl border border-slate-200">
+                <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Scoring (72 pt max)</div>
+                <div className="grid grid-cols-5 gap-1.5 text-center text-xs">
+                  {[["2","advance"],["+1","seed"],["4","QF"],["8","SF"],["16","champ"]].map(([n,l],i)=>(
+                    <div key={i} className="bg-slate-50 rounded-lg p-1.5"><div className="font-black text-slate-700">{n}</div><div className="text-slate-400">{l}</div></div>
+                  ))}
+                </div>
+              </div>
+              <div className="bg-slate-800 p-3 rounded-xl text-white">
+                <div className="text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">Pool Scenarios</div>
+                <div className="text-xs space-y-1.5 text-slate-300">
+                  <div><span className="text-red-400 font-bold">DR wins SF1:</span> Hendrik wins pool outright (35 pts)</div>
+                  <div><span className="text-blue-400 font-bold">USA wins SF1, loses Final:</span> 3-way tie at 36 — Crosby (TB=3), Cape (TB=5), Kaushal (TB=7)</div>
+                  <div><span className="text-emerald-400 font-bold">USA wins it all:</span> 3-way tie at 52 — same three, tiebreaker decides</div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+      <div className="text-center text-xs text-slate-400">Updated: Mar 14, 2026 — All QFs Complete — 16/16 Paid</div>
+    </div>
+  );
+}
